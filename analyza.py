@@ -10,7 +10,7 @@ import pandas as pd
 import sqlite3
 import datetime
 
-con = sqlite3.connect("data/Gadgetbridge.sqlite")
+con = sqlite3.connect("data/Gadgetbridge.sqlite",check_same_thread=False)
 
 data = pd.read_sql_query("SELECT * FROM MI_BAND_ACTIVITY_SAMPLE", con)
 device = pd.read_sql_query("SELECT * FROM DEVICE", con)
@@ -77,15 +77,13 @@ def GetWorn(datas):
     return GetMereny(datas).groupby("DEVICE_ID").filter(lambda x: len(x) > minTime)
 
 def GetUserByAlias(alias):
-    data = pd.read_sql_query(f"SELECT DEVICE.ALIAS, MI_BAND_ACTIVITY_SAMPLE.RAW_INTENSITY, MI_BAND_ACTIVITY_SAMPLE.STEPS, MI_BAND_ACTIVITY_SAMPLE.HEART_RATE FROM MI_BAND_ACTIVITY_SAMPLE JOIN DEVICE ON MI_BAND_ACTIVITY_SAMPLE.DEVICE_ID=DEVICE._id WHERE DEVICE.ALIAS='{alias}'", con)
-    user_Info = info[info["alias"] == alias]
+    data = pd.read_sql_query(f"SELECT DEVICE.ALIAS, MI_BAND_ACTIVITY_SAMPLE.RAW_INTENSITY, MI_BAND_ACTIVITY_SAMPLE.STEPS, MI_BAND_ACTIVITY_SAMPLE.HEART_RATE FROM MI_BAND_ACTIVITY_SAMPLE JOIN DEVICE ON MI_BAND_ACTIVITY_SAMPLE.DEVICE_ID=DEVICE._id WHERE lower(DEVICE.ALIAS)=lower('{alias}')", con)
     df = GetMereny(data)
-    user = {
-        "info": user_Info,
-        "stats": df
-    }
-    return user
-
+    return df
+def GetUserInfoByAlias(alias):
+    infoLower = info["alias"].map(lambda x: str.lower(str(x)))
+    user_Info = info[infoLower == str.lower(alias)]
+    return user_Info
 def GetUserReport(alias):
     datas = pd.read_sql_query(f"SELECT * FROM MI_BAND_ACTIVITY_SAMPLE JOIN DEVICE ON MI_BAND_ACTIVITY_SAMPLE.DEVICE_ID=DEVICE._id JOIN BATTERY ON DEVICE._id=BATTERY.DEVICE_ID", con)
     GetData(datas, sloupce=[""])
