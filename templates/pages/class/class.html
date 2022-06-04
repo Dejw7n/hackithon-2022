@@ -154,27 +154,29 @@
 		<div class="w-full lg:ml-8">
 			<div class="timetable-row-day">
 				<div class="timetable-cell-day"></div>
-				{%for i in range(0, 10)%}
+				{%for day in schedule[nejvic_den]%}
 				<div class="timetable-row-cell-day">
 					<div class="m-auto">
-						<p class="text-blue-600 text-center font-semibold">{{ i }}</p>
-						<p class="text-xs text-center font-semibold">8:00 - 8:45</p>
+						<p class="text-blue-600 text-center font-semibold">{{ loop.counter }}</p>
+						<p class="text-xs text-center font-semibold">{{ day[1] }} - {{ day[2] }}</p>
 					</div>
 				</div>
+				{%set lessonCount = loop.counter%}
 				{% endfor %}
+
 			</div>
-			{%for i in range(0, 5)%}
+			{%set dny = ["Po","Út", "St","Čt","Pá"] %}
+			{%for day in schedule%}
 			<div class="timetable-row">
 				<div class="timetable-cell-day">
 					<div class="m-auto">
-						<p class="text-blue-600 font-semibold">Po</p>
-						<p class="font-semibold">10.5.</p>
+						<p class="text-blue-600 font-semibold">{{ dny[loop.index0] }}</p>
 					</div>
 				</div>
-				{%for i in range(0, 10)%}
+				{%for subjects in day%}
 				<div class="timetable-cell bg-red-400">
 					<div class="m-auto">
-						<p class="text-xl">WEA</p>
+						<p class="text-xl">{{ subjects[0] }}</p>
 					</div>
 				</div>
 				{% endfor %}
