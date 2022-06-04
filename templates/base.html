@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="/static/src/css/style.css" />
+		<script src="https://cdn.tailwindcss.com"></script>
+	</head>
+	<body>
+		<div class="flex w-screen h-screen">
+			{% include 'components/menu/menu.html' %}
+			<div class="w-full h-full">{% if page == '' %} {% include 'pages/home/home.html' %} {% endif %} {% if page == 'class' %} {% include 'pages/class/class.html' %} {% endif %}</div>
+		</div>
+	</body>
+</html>

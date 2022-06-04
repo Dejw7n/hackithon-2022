@@ -4,8 +4,13 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
-    return render_template("index.html")
+def index():
+    return render_template("base.html", page="")
+
+
+@app.route('/class/')
+def classRoom():
+    return render_template('base.html', page="class")
 
 
 if(__name__ == "__main__"):
