@@ -19,7 +19,7 @@ def index():
 
 @app.route('/class/')
 def classRoom():
-    komponenty.getTimeTable()
+    # komponenty.getTimeTable()
     return render_template('pages/class/class.html')
 
 
