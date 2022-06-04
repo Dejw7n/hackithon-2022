@@ -1,13 +1,17 @@
 from copy import deepcopy
+
+from pandas import DataFrame
 import analyza
 
 ##########NEDODĚLANÉ###########
-def CompareStepsBySex():
-    k1 = analyza.data.copy(deep=True)
-    k2 = analyza.info.copy(deep=True)
-    k1["tmp"] = 1
-    k2["tmp"] = 1
-    return k1.merge(k2, on="tmp")
+def CompareStepsBySexGeneral(datas):
+    k = analyza.GetData(datas, podle=["user"], metody=["sum"], co=["steps"]).merge(analyza.info, left_on="user", right_on="id")
+    k["sum steps"] = k[("steps", "sum")]
+    del k[("steps", "sum")]
+    k = analyza.GetData(k, podle=["sex"], metody=["mean"], co=["sum steps"]).to_dict()[('sum steps', 'mean')]
+    s = (k["male"]+k["female"])/100
+    k = analyza.pd.DataFrame(columns=["sex", "steps", "ratio"], data=[["male", k["male"], f"{k['male']/s}%"], ["female", k["female"], f"{k['female']/s}%"]])
+    return k
 
 def GetCountInactive():
     return analyza.GetData(analyza.device.merge(analyza.info, how="outer", on=""), metody=["size"])["NAME"]["size"]
@@ -55,4 +59,6 @@ GetSumDayStepsForUsers = GetSumDayStepsForUsersGeneral(analyza.data)
 GetAllAvgDayStepsForAll = GetAllAvgDayStepsForAllGeneral(analyza.data)
 GetCountActive = GetCountActiveGeneral()
 
-print(CompareStepsBySex())
+#print(CompareStepsBySex())
+
+print(CompareStepsBySexGeneral(analyza.home))
