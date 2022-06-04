@@ -116,23 +116,5 @@ def GetDataOnDays(datas, days):
     new["DAY"] = new["TIMESTAMP"].dt.weekday
     return new[new["DAY"].isin(days)]
 
-def GetSubjectsOnData():
-    school_df = pd.read_csv('data/data_school.csv', parse_dates = ['datetime'])
-
-    sched_df = pd.read_csv('data/schedule.csv')
-    sched_df['zacatek'] = pd.to_datetime(sched_df['from'], format = '%H:%M')
-    sched_df['konec'] = pd.to_datetime(sched_df['to'], format = '%H:%M')
-    del sched_df['from'], sched_df['to']
-
-    school_df['weekday'] = school_df['datetime'].dt.day_name()
-    school_df['time'] = pd.to_datetime(pd.to_datetime(school_df['datetime']).dt.strftime("%H:%M"), format="%H:%M")
-
-    df_merge = school_df.merge(sched_df, how = 'cross')
-    df_merge = df_merge.query('time >= zacatek and time <= konec')
-
-    df_all=df_merge.merge(school_df, how='outer')
-    df_all.day[df_all.day.isnull()] = df_all.weekday[df_all.day.isnull()]
-    return df_all
-
 def Vypis(datas):
     print(datas.to_markdown())
