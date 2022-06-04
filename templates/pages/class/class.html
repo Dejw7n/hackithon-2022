@@ -1,5 +1,4 @@
-{% extends 'base.html' %}
-{% block main %}
+{% extends 'base.html' %} {% block main %}
 <div class="grid grid-cols-4 gap-8">
 	{%for i in range(0, 4)%}
 	<div class="flex px-7 py-5 rounded-md shadow-md border-2 border-gray-100 bg-white">
@@ -24,18 +23,97 @@
 </div>
 <div class="mt-8">
 	<div class="flex px-7 py-5 rounded-md shadow-md border-2 border-gray-200 bg-white">
-		<div class="grid grid-rows-2">
-			<div class="flex px-7 bg-emerald-100">
-				<div class="">
-					<span class="">Účastnilo se</span>
+		<div class="grid grid-rows-2 gap-6">
+			<div class="flex min-w-[250px] px-7 py-6 rounded-lg bg-emerald-100">
+				<div class="grid">
+					<div class="my-auto">
+						<span class="text-xl text-emerald-600">Účastnilo se</span>
+					</div>
 				</div>
 				<div class="ml-auto">
-					<span class="">127</span>
+					<span class="text-4xl text-emerald-600 font-semibold">127</span>
 				</div>
 			</div>
-			<div class=""></div>
+			<div class="flex min-w-[250px] px-7 py-6 rounded-lg bg-indigo-50">
+				<div class="grid">
+					<div class="my-auto">
+						<span class="text-xl text-indigo-600">Nezapočítáno</span>
+					</div>
+				</div>
+				<div class="ml-auto">
+					<span class="text-4xl text-indigo-600 font-semibold">1</span>
+				</div>
+			</div>
 		</div>
-		<div class=""></div>
+		<div class="w-full ml-8">
+			<div class="table w-full">
+				<div class="table-row">
+					<div class="table-cell">
+						<p class="text-gray-500">JMÉNO</p>
+					</div>
+					<div class="table-cell">
+						<p class="text-gray-500">PŘIJMENÍ</p>
+					</div>
+					<div class="table-cell">
+						<p class="text-gray-500">STAV</p>
+					</div>
+					<div class="table-cell">
+						<p class="text-gray-500">POSLEDNÍ AKTUALIZACE</p>
+					</div>
+				</div>
+				{%for i in range(0, 5)%}
+				<div class="table-row">
+					<div class="table-cell py-2">
+						<p class="">Miroslav</p>
+					</div>
+					<div class="table-cell">
+						<p class="">Pokorný</p>
+					</div>
+					<div class="table-cell">
+						<p class="text-emerald-600">Účastnil se</p>
+					</div>
+					<div class="table-cell">
+						<p class="">22.03.2017</p>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
 	</div>
 </div>
-{% endblock  %}
+<div class="mt-8">
+	<div class="px-7 py-5 rounded-md shadow-md border-2 border-gray-200 bg-white">
+		<h1 class="text-2xl">Třídní rozvrh</h1>
+		<div class="">
+			<div class="timetable-row-day">
+				<div class="timetable-cell-day"></div>
+				{%for i in range(0, 7)%}
+				<div class="timetable-row-cell-day">
+					<div class="m-auto">
+						<p class="text-blue-600 text-center font-semibold">1</p>
+						<p class="text-xs text-center font-semibold">8:00 - 8:45</p>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			{%for i in range(0, 5)%}
+			<div class="timetable-row">
+				<div class="timetable-cell-day">
+					<div class="m-auto">
+						<p class="text-blue-600 font-semibold">Po</p>
+						<p class="font-semibold">10.5.</p>
+					</div>
+				</div>
+				{%for i in range(0, 7)%}
+				<div class="timetable-cell bg-red-400">
+					<div class="m-auto">
+						<p class="text-xl">WEA</p>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock %}
