@@ -2,7 +2,7 @@
  - David Hadupyak, Matěj Verner, Adam Kopřiva, Jan Kopejtko
 
 
-**Nazev** je webová aplikace zabývající se zpracováním dat z náramků značky xiaomi band 4.
+**FitStats** je webová aplikace zabývající se zpracováním dat z náramků značky xiaomi band 4.
 Data se po zpracování zobrazí ve webovém rozhraní.
 
 ## Použité technologie
@@ -76,5 +76,5 @@ Data se po zpracování zobrazí ve webovém rozhraní.
 `GetAvgDayStepsForUsers()`
  - Vrací průmer kroků studenta za všechny dny
 
-`GetAvgDayStepsForAll()`
+`GetAvgDayStepsForAllGeneral(datas)`
  - Vrací průměr kroků třídy za všechny dny

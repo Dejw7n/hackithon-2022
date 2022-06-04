@@ -12,7 +12,7 @@ def GetCountInactive():
 
 
 def GetCountActiveGeneral():
-    return analyza.GetData(analyza.info, metody=["size"])["NAME"]["size"]
+    return analyza.GetData(analyza.info, metody=["size"])["id"]["size"]
 
 def GetAllAvgDayStepsForAllGeneral(datas):
     return analyza.GetData(analyza.GetMereny(datas), metody=["mean"], co=["STEPS"])*60*24
@@ -45,8 +45,8 @@ GetAvgDayStepsForAll = GetAvgDayStepsForAllGeneral(analyza.data)
 GetAvgDayStepsForUsers = GetAvgDayStepsForUsersGeneral(analyza.data)
 GetSumDayStepsForUsers = GetSumDayStepsForUsersGeneral(analyza.data)
 GetAllAvgDayStepsForAll = GetAllAvgDayStepsForAllGeneral(analyza.data)
-GetCountActive = GetCountActiveGeneral(analyza.data)
+GetCountActive = GetCountActiveGeneral()
 
 
 
-print(GetAvgDayStepsForUsers())
+print(GetCountActive)
