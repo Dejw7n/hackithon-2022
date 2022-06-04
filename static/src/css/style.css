@@ -25,12 +25,12 @@
     display: flex;
 }
 .timetable-row-cell-day {
-    width: 8%;
+    width: 10%;
     height: 50px;
 }
 .timetable-cell {
     display: grid;
-    width: 8%;
+    width: 10%;
     height: 100%;
 }
 .timetable-cell-day {
