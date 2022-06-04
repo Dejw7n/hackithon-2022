@@ -1,4 +1,6 @@
 # HACKITHON 2022 - Analýza pohybové aktivity z chytrých náramků
+ - David Hadupyak, Matěj Verner, Adam Kopřiva, Jan Kopejtko
+
 
 **Nazev** je webová aplikace zabývající se zpracováním dat z náramků značky xiaomi band 4.
 Data se po zpracování zobrazí ve webovém rozhraní.
@@ -19,7 +21,7 @@ Data se po zpracování zobrazí ve webovém rozhraní.
  - Vypíše data
 
 `GetData(datas = jaká datas, sloupce = jaké sloupce má vybrat, podle = podle čeho má seskupit, metody = jaké metody má použít, co = na jaké sloupce má použít "metody")`
- - Vrací vyfiltrované data z databáze
+ - Vrací vyfiltrovaná data z databáze
 
 `Compare(datas = jaká datas, co = jaký sloupec)`
  - Porovná data a vrátí poměr v %
@@ -34,7 +36,7 @@ Data se po zpracování zobrazí ve webovém rozhraní.
  - Vrací 10 % z rozdílu Max a Min hodnotou času
 
 `GetWorn(datas = jaká datas)`
- - Vrací vyfiltrované data jen náramky které jsou nošené
+ - Vrací vyfiltrovaná data jen náramky, které jsou nošené
 
 `GetUserByAlias(alias)`
  - Vrací uživatele podle aliasu daného náramku
@@ -43,7 +45,7 @@ Data se po zpracování zobrazí ve webovém rozhraní.
  - Vrací statistiku uživatele podle aliasu daného náramku
 
 `GetClassReport()`
- - Vrací data célé třídy
+ - Vrací data celé třídy
 
 `GetActivity(x = aktivita)`
  - Vrací aktivitu (spánek, chůze, běh)
@@ -55,15 +57,24 @@ Data se po zpracování zobrazí ve webovém rozhraní.
  - Vrací výsledek převodu času na českou normu
   
 `GetMethodBetweenDates(datas = jaká datas, start = začátek čas, end = konec čas, method = metoda)`
- - Provede vloženou metodu na všech záznamech začínajících s časem start a končícívh s časem end
+ - Provede vloženou metodu na všech záznamech začínajících s časem start a končících s časem end
 
 `GetDataOnDays(datas = jaká datas, days = index dnu)`
- - Vrací vyfiltrované data podle indexu dnu
+ - Vrací vyfiltrovaná data podle indexu dnu
 
 ### funkce.py
 
 `GetCountActive()`
- - Vrací náramky u kterých jsou data dostupná
+ - Vrací náramky, u kterých jsou data dostupná
 
-`GetAllAvgDayStepsForClass()`
-- 
+`GetAllAvgDayStepsForAll()`
+ - Vrací průměrný počet kroků celé třídy za všechny dny
+
+`GetSumDayStepsForUsers()`
+ - Vrací počet kroků studenta za všechny dny
+
+`GetAvgDayStepsForUsers()`
+ - Vrací průmer kroků studenta za všechny dny
+
+`GetAvgDayStepsForAll()`
+ - Vrací průměr kroků třídy za všechny dny
