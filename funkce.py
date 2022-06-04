@@ -45,12 +45,12 @@ def FormatSchedule():
     days = {} 
     day = None
     subject = None
-    for (key, value) in analyza.schedule.groupby("day"): #proiterovávat dny
+    for (key, value) in analyza.schedule.groupby("day"):
         value = analyza.GetData(value, sloupce=["subject", "from", "to", "school"])
         day = []
-        for _, row in value.iterrows(): #proiterovávat rows
+        for _, row in value.iterrows():
             subject = []
-            for _, v in row.items(): #proiterovávat index, values
+            for _, v in row.items():
                 subject.append(v)
             day.append(subject)
         days[key] = day
