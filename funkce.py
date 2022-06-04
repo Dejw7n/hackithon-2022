@@ -40,7 +40,25 @@ def GetAvgDayStepsForAllGeneral(datas):
     k["STEPS"] = k["STEPS"].map(lambda x: x*24*60)
     return k
 
+
+def FormatSchedule():
+    days = {} 
+    day = None
+    subject = None
+    for (key, value) in analyza.schedule.groupby("day"): #proiterovávat dny
+        value = analyza.GetData(value, sloupce=["subject", "from", "to", "school"])
+        day = []
+        for _, row in value.iterrows(): #proiterovávat rows
+            subject = []
+            for _, v in row.items(): #proiterovávat index, values
+                subject.append(v)
+            day.append(subject)
+        days[key] = day
+    return days
+
 GetAvgDayStepsForAll = GetAvgDayStepsForAllGeneral(analyza.data)
 GetAvgDayStepsForUsers = GetAvgDayStepsForUsersGeneral(analyza.data)
 GetSumDayStepsForUsers = GetSumDayStepsForUsersGeneral(analyza.data)
 GetAllAvgDayStepsForAll = GetAllAvgDayStepsForAllGeneral(analyza.data)
+
+FormatSchedule()
