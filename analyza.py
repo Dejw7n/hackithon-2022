@@ -5,23 +5,26 @@ from statistics import mean
 from tokenize import String
 import pandas as pd
 import sqlite3
+import datetime
 import flask
 
-con = sqlite3.connect("hackithon-2022\data\Gadgetbridge.sqlite")
+con = sqlite3.connect("data/Gadgetbridge.sqlite")
 data = pd.read_sql_query("SELECT * FROM MI_BAND_ACTIVITY_SAMPLE", con)
+info = pd.read_csv("data/info.csv")
 
 activity_dictionary = {
-    1 : "Chodí",
-    112 : "Spí",
-    80 : "Žádné kroky",
-    115 : "Nenosí",
-    16 : "0h Timestamp",
-    17 : "Rychle chodí",
-    19 : "Bež do postele",
-    123 : "Usl/a",
-    122 : "sleep, raw_intensity =<20"
+    "Running" : [98, 50, 66, 82],
+    "Walking" : [1, 16, 17, 33, 49, 18, 34, 65],
+    "Light_Sleep" : [112],
+    "Heavy_Sleep" : [122],
+    "Sit" : [80, 96, 99],
+    "Standing" : [96],
+    "SedentaryInLast5Minutes" : [90],
+    "NotWorn" : [3],
+    "NotWorn_Charging" : [6],
+    "NotWorn_FaceUp" : [83],
+    "NotWorn_FaceDown" : [115]
 }
-activity_dictionary_keys = activity_dictionary.keys()
 
 def getClass():
     
@@ -37,7 +40,6 @@ def GetData(datas, sloupce = data.columns.values, podle = None, metody = None, c
         co = na jaké sloupce má použít "metody"
     """
     sl = data.loc[:, sloupce]
-    print(data.columns)
     if podle != None:
         sl = sl.groupby(by=podle)
     if metody != None:
@@ -55,7 +57,6 @@ def Compare(datas, co):
     n = datas[co].value_counts(normalize=True)
     return n
 
-# Vrátí data bez hr=255
 def GetMereny(datas):
     """Vrátí data mezi 1-254"""
     prom = "hr" if "hr" in datas.columns.values else "HEART_RATE"
@@ -64,14 +65,34 @@ def GetMereny(datas):
 def Vypis(datas):
     print(datas.to_markdown())
 
+def GetActivity(x):
+    for activity in activity_dictionary:
+        if x in activity_dictionary[activity]:
+            return activity
+    return "Unknown"
+
 def PrelozActivity(datas):
-    datas["ACTIVITY"] = datas["RAW_KIND"].map(lambda x: activity_dictionary[x] if x in activity_dictionary_keys else "unknown")
+    datas["ACTIVITY"] = datas["RAW_KIND"].map(GetActivity)
     return datas
 
-def getUserByAlias(alias):
-    
+def GetUserByAlias(alias):
+
     data = pd.read_sql_query(f"SELECT DEVICE.ALIAS, MI_BAND_ACTIVITY_SAMPLE.RAW_INTENSITY, MI_BAND_ACTIVITY_SAMPLE.STEPS, MI_BAND_ACTIVITY_SAMPLE.HEART_RATE FROM MI_BAND_ACTIVITY_SAMPLE JOIN DEVICE ON MI_BAND_ACTIVITY_SAMPLE.DEVICE_ID=DEVICE._id WHERE DEVICE.ALIAS='{alias}'", con)
-    return GetMereny(data)
+    user_Info = info[info["alias"] == alias]
+    df = GetMereny(data)
+    user = {
+        "info": user_Info,
+        "stats": df
+    }
+    return user
+
+def GetUserReport(alias):
+    datas = pd.read_sql_query(f"SELECT * FROM MI_BAND_ACTIVITY_SAMPLE JOIN DEVICE ON MI_BAND_ACTIVITY_SAMPLE.DEVICE_ID=DEVICE._id JOIN BATTERY ON DEVICE._id=BATTERY.DEVICE_ID", con)
+    GetData(datas, sloupce=[""])
+
+def PrelozDatum(datas):
+    datas["TIMESTAMP"] = datas["TIMESTAMP"].apply(lambda x: datetime.datetime.fromtimestamp(x))
+    return datas
 
 print(getUserByAlias("Band 01"))
 
@@ -81,3 +102,5 @@ print(getUserByAlias("Band 01"))
 #print(PrelozActivity(data))
 
 #print(Compare(data, "RAW_KIND"))
+
+print(PrelozDatum(data))
