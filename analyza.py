@@ -10,15 +10,15 @@ import pandas as pd
 import sqlite3
 import datetime
 
-con = sqlite3.connect("hackithon-2022/data/Gadgetbridge.sqlite")
+con = sqlite3.connect("data/Gadgetbridge.sqlite")
 
 data = pd.read_sql_query("SELECT * FROM MI_BAND_ACTIVITY_SAMPLE", con)
 device = pd.read_sql_query("SELECT * FROM DEVICE", con)
 
-info = pd.read_csv("hackithon-2022/data/info.csv")
-schedule = pd.read_csv("hackithon-2022/data/schedule.csv")
-home = pd.read_csv("hackithon-2022/data/data_home.csv")
-school = pd.read_csv("hackithon-2022/data/data_school.csv")
+info = pd.read_csv("data/info.csv")
+schedule = pd.read_csv("data/schedule.csv")
+home = pd.read_csv("data/data_home.csv")
+school = pd.read_csv("data/data_school.csv")
 
 activity_dictionary = {
     "Running" : [98, 50, 66, 82],
@@ -119,9 +119,9 @@ def GetDataOnDays(datas, days):
     return new[new["DAY"].isin(days)]
 
 def GetSubjectsOnData():
-    school_df = pd.read_csv('hackithon-2022/data/data_school.csv', parse_dates = ['datetime'])
+    school_df = pd.read_csv('data/data_school.csv', parse_dates = ['datetime'])
 
-    sched_df = pd.read_csv('hackithon-2022/data/schedule.csv')
+    sched_df = pd.read_csv('data/schedule.csv')
     sched_df['zacatek'] = pd.to_datetime(sched_df['from'], format = '%H:%M')
     sched_df['konec'] = pd.to_datetime(sched_df['to'], format = '%H:%M')
     del sched_df['from'], sched_df['to']

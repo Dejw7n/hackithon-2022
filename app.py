@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    getAVG = funkce.GetAvgDayStepsForClass()
+    getAVG = funkce.GetAvgDayStepsForAll
     getAVG = getAVG.rename(columns={"STEPS": "Počet kroků"})
     print(str(getAVG))
     stepsGraph = px.bar(getAVG, labels=dict(

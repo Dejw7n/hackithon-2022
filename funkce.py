@@ -10,13 +10,13 @@ def GetCountInactive():
 
 ################################
 
-
+#Vrací náramky, u kterých jsou data dostupná
 def GetCountActiveGeneral():
     return analyza.GetData(analyza.info, metody=["size"])["id"]["size"]
-
+#Vrací průměrný počet kroků celé třídy za všechny dny
 def GetAllAvgDayStepsForAllGeneral(datas):
     return analyza.GetData(analyza.GetMereny(datas), metody=["mean"], co=["STEPS"])*60*24
-
+#Vrací počet kroků studenta za všechny dny
 def GetSumDayStepsForUsersGeneral(datas):
     k = datas.copy(deep=True)
     k["TIMESTAMP"] = analyza.pd.to_datetime(k["TIMESTAMP"]*1000000000)
@@ -26,6 +26,7 @@ def GetSumDayStepsForUsersGeneral(datas):
     k["STEPS"] = k["STEPS"].map(lambda x: x*60*24)
     return k
 
+#Vrací průmer kroků studenta za všechny dny
 def GetAvgDayStepsForUsersGeneral(datas):
     k = datas.copy(deep=True)
     k["TIMESTAMP"] = analyza.pd.to_datetime(k["TIMESTAMP"]*1000000000)
@@ -33,6 +34,7 @@ def GetAvgDayStepsForUsersGeneral(datas):
     k["STEPS"] = k["STEPS"].map(lambda x: x*60*24)
     return k
 
+#Vrací průměr kroků třídy za všechny dny
 def GetAvgDayStepsForAllGeneral(datas):
     k = datas.copy(deep=True)
     k["TIMESTAMP"] = analyza.pd.to_datetime(k["TIMESTAMP"]*1000000000)
