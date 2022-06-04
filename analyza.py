@@ -94,7 +94,7 @@ def PrelozDatum(datas):
     datas["TIMESTAMP"] = datas["TIMESTAMP"].apply(lambda x: datetime.datetime.fromtimestamp(x))
     return datas
 
-print(getUserByAlias("Band 01"))
+print(GetUserByAlias("Band 01"))
 
 # Get all data, kde neni tep 255, groupni by user a napis sum + mean hr
 #result = GetData(GetMereny(GetData(data, sloupce=["user", "hr", "steps"])), podle=["user"], metody=[sum, mean], co=["hr", "steps"])
