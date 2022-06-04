@@ -3,14 +3,15 @@ from locale import normalize
 from multiprocessing.dummy import Array
 from statistics import mean
 from tokenize import String
+from xmlrpc.client import DateTime
 import pandas as pd
 import sqlite3
 import datetime
 import flask
 
-con = sqlite3.connect("data/Gadgetbridge.sqlite")
+con = sqlite3.connect("hackithon-2022/data/Gadgetbridge.sqlite")
 data = pd.read_sql_query("SELECT * FROM MI_BAND_ACTIVITY_SAMPLE", con)
-info = pd.read_csv("data/info.csv")
+info = pd.read_csv("hackithon-2022/data/info.csv")
 
 activity_dictionary = {
     "Running" : [98, 50, 66, 82],
@@ -58,9 +59,24 @@ def Compare(datas, co):
     return n
 
 def GetMereny(datas):
-    """Vrátí data mezi 1-254"""
+    """Vrátí data mezi hr = 1-254"""
     prom = "hr" if "hr" in datas.columns.values else "HEART_RATE"
     return datas.query(f"{prom} > 0 and {prom} < 255")
+
+def GetMinutesByDeltaTime(start, end):
+    return (end-start).days*24*60 if isinstance(start, DateTime) else (end-start)/60
+
+def GetDifferenceSeconds(datas):
+    new = datas.agg({"TIMESTAMP": [min, max]})["TIMESTAMP"]
+    return 0.1*GetMinutesByDeltaTime(new["min"], new["max"])
+
+def GetWorn(datas):
+    minTime = GetDifferenceSeconds(datas)
+    #VYFILTROVAT ZÁZNAMY S VERIFINUTÝM HEART RATEM, KTERÝ JE VĚTŠÍ NEŽ MINTIME
+    new = GetMereny(datas)
+    print(new.groupby("DEVICE_ID").count())
+    new["COUNT"] = new.groupby("DEVICE_ID").size()["DATETIME"]
+    return new
 
 def Vypis(datas):
     print(datas.to_markdown())
@@ -92,9 +108,10 @@ def GetUserReport(alias):
 
 def PrelozDatum(datas):
     datas["TIMESTAMP"] = datas["TIMESTAMP"].apply(lambda x: datetime.datetime.fromtimestamp(x))
+    datas["PASMO"] = datas["TIMESTAMP"].dt.tz_localize("UTC").dt.tz_convert("CET")
     return datas
 
-print(GetUserByAlias("Band 01"))
+#print(GetUserByAlias("Band 01"))
 
 # Get all data, kde neni tep 255, groupni by user a napis sum + mean hr
 #result = GetData(GetMereny(GetData(data, sloupce=["user", "hr", "steps"])), podle=["user"], metody=[sum, mean], co=["hr", "steps"])
@@ -103,4 +120,8 @@ print(GetUserByAlias("Band 01"))
 
 #print(Compare(data, "RAW_KIND"))
 
-print(PrelozDatum(data))
+#print(PrelozDatum(data))
+
+print(GetDifferenceSeconds(data))
+
+print(GetWorn(data))
