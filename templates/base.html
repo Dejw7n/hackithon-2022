@@ -11,7 +11,9 @@
 	<body>
 		<div class="flex w-screen h-screen">
 			{% include 'components/menu/menu.html' %}
-			<div class="w-full h-full">{% if page == '' %} {% include 'pages/home/home.html' %} {% endif %} {% if page == 'class' %} {% include 'pages/class/class.html' %} {% endif %}</div>
+			<div class="w-full h-full">
+				<div class="py-8 pl-20 pr-10 w-full h-full bg-slate-50">{% block main %}{% endblock %}</div>
+			</div>
 		</div>
 	</body>
 </html>
