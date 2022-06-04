@@ -11,10 +11,9 @@ import sqlite3
 import datetime
 
 con = sqlite3.connect("hackithon-2022/data/Gadgetbridge.sqlite")
-data = pd.read_sql_query("SELECT * FROM MI_BAND_ACTIVITY_SAMPLE", con)
 
-conDevice = sqlite3.connect("hackithon-2022/data/Gadgetbridge.sqlite")
-device = pd.read_sql_query("SELECT * FROM DEVICE", conDevice)
+data = pd.read_sql_query("SELECT * FROM MI_BAND_ACTIVITY_SAMPLE", con)
+device = pd.read_sql_query("SELECT * FROM DEVICE", con)
 
 info = pd.read_csv("hackithon-2022/data/info.csv")
 schedule = pd.read_csv("hackithon-2022/data/schedule.csv")

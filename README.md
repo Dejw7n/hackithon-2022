@@ -12,6 +12,12 @@ Data se po zpracování zobrazí ve webovém rozhraní.
      - Pandas
   
 ## Dokumentace kódu
+
+### analyza.py
+
+`Vypis(datas = jaká datas)`
+ - Vypíše data
+
 `GetData(datas = jaká datas, sloupce = jaké sloupce má vybrat, podle = podle čeho má seskupit, metody = jaké metody má použít, co = na jaké sloupce má použít "metody")`
  - Vrací vyfiltrované data z databáze
 
@@ -53,3 +59,8 @@ Data se po zpracování zobrazí ve webovém rozhraní.
 
 `GetDataOnDays(datas = jaká datas, days = index dnu)`
  - Vrací vyfiltrované data podle indexu dnu
+
+### funkce.py
+
+`CompareStepsBySex()`
+ - Vrací 
