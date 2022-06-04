@@ -11,7 +11,7 @@
 	<body>
 		<div class="flex w-screen h-screen">
 			{% include 'components/menu/menu.html' %}
-			<div class="w-full h-full">{% include 'pages/home/home.html' %}</div>
+			<div class="w-full h-full">{% if page == '' %} {% include 'pages/home/home.html' %} {% endif %} {% if page == 'class' %} {% include 'pages/class/class.html' %} {% endif %}</div>
 		</div>
 	</body>
 </html>
