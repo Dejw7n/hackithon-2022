@@ -1,6 +1,9 @@
 import analyza
 
 def CompareStepsBySex():
-    return analyza.GetData(analyza.data)
+    return analyza.GetData(analyza.data.merge(analyza.info, on=["ALIAS", "alias"]))
 
-print(CompareStepsBySex())
+def GetAvgDayStepsForClass():
+    return analyza.GetData(analyza.GetMereny(analyza.data), metody=["mean"], co=["STEPS"])*60*24
+
+print(GetAvgDayStepsForClass())
