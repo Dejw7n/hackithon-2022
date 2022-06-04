@@ -49,6 +49,13 @@ def GetAvgDayStepsForAllGeneral(datas):
     k["STEPS"] = k["STEPS"].map(lambda x: x*24*60)
     return k
 
+def GetUserByAliasFunc(alias:str,args:str):
+    user = {
+        "info": analyza.GetUserInfoByAlias(alias),
+        "stats": analyza.GetUserByAlias(alias)
+    }
+    return user
+
 GetAvgDayStepsForAll = GetAvgDayStepsForAllGeneral(analyza.data)
 GetAvgDayStepsForUsers = GetAvgDayStepsForUsersGeneral(analyza.data)
 GetSumDayStepsForUsers = GetSumDayStepsForUsersGeneral(analyza.data)
