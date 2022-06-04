@@ -58,8 +58,6 @@ def FormatSchedule():
         days[key] = day
     return days
 
-import analyza
-
 def CompareStepsBySexGeneral(datas):
     k = analyza.GetData(datas, podle=["user"], metody=["sum"], co=["steps"]).merge(analyza.info, left_on="user", right_on="id")
     k["sum steps"] = k[("steps", "sum")]
