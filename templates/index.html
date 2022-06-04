@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="/static/src/style.css" />
+		<script src="https://cdn.tailwindcss.com"></script>
+	</head>
+	<body>
+		<div class="flex w-screen h-screen">
+			<div class="max-w-[6rem] w-full h-full">
+				<div class="fixed max-w-[6rem] w-full h-full px-4 py-10 border-r-2 border-r-gray-200">
+					<div class="w-8 h-8 mx-auto bg-red-400">
+						<img src="/static/src/images/icons8-menu-30.png" alt="" class="h-full" />
+					</div>
+				</div>
+			</div>
+			<div class="w-full h-full">
+				<div class="py-8 pl-20 pr-10 w-full h-full">
+					<div class="flex">
+						<div class="flex ml-auto">
+							<div class="grid">
+								<span class="my-auto mr-3 pt-1 sm:text-sm">Filtrovat podle</span>
+							</div>
+							<div class="">
+								<select id="filter-month" name="filter-month" autocomplete="filter-month" class="select-wrapper mt-1 block w-full py-1 pl-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm font-semibold">
+									<option>Tento den</option>
+									<option>Tento týden</option>
+									<option>Tento měsíc</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="flex">
+						<div class="border-2 border-gray-200 px-8 py-6">
+							<div class="">
+								<span class="font-semibold">Upcoming Appt.</span>
+							</div>
+							<div class="">
+								<span class="text-5xl font-semibold">120</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
