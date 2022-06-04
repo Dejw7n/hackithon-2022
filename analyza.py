@@ -1,4 +1,5 @@
 from ast import arg
+from calendar import weekday
 from locale import normalize
 from multiprocessing.dummy import Array
 from statistics import mean
@@ -28,7 +29,7 @@ activity_dictionary = {
 }
 def GetData(datas, sloupce = data.columns.values, podle = None, metody = None, co = None):
     """
-        datas = jaká data
+        datas = jaká datas
         sloupce = jaké sloupce má vybrat
         podle = podle čeho má seskupit
 
@@ -99,5 +100,33 @@ def PrelozDatum(datas):
     datas["PASMO"] = datas["TIMESTAMP"].dt.tz_localize("UTC").dt.tz_convert("CET")
     return datas
 
+def GetMethodBetweenDates(datas, start, end, method):
+    new = PrelozDatum(datas)
+    return getattr(new[(new["TIMESTAMP"] >= start) & (new["TIMESTAMP"] <= end)], method)()
+
+def GetMethodOnDays(datas, days, method):
+    new = PrelozDatum(datas)
+    return getattr(new[new["TIMESTAMP"].dt.weekday in days], method)()
+
+def GetSubjectsOnData():
+    school_df = pd.read_csv('hackithon-2022/data/data_school.csv', parse_dates = ['datetime'])
+
+    sched_df = pd.read_csv('hackithon-2022/data/schedule.csv')
+    sched_df['zacatek'] = pd.to_datetime(sched_df['from'], format = '%H:%M')
+    sched_df['konec'] = pd.to_datetime(sched_df['to'], format = '%H:%M')
+    del sched_df['from'], sched_df['to']
+
+    school_df['weekday'] = school_df['datetime'].dt.day_name()
+    school_df['time'] = pd.to_datetime(pd.to_datetime(school_df['datetime']).dt.strftime("%H:%M"), format="%H:%M")
+
+    df_merge = school_df.merge(sched_df, how = 'cross')
+    df_merge = df_merge.query('time >= zacatek and time <= konec')
+
+    df_all=df_merge.merge(school_df, how='outer')
+    df_all.day[df_all.day.isnull()] = df_all.weekday[df_all.day.isnull()]
+    return df_all
+
 def Vypis(datas):
     print(datas.to_markdown())
+
+#print(GetMethodOnDays(data, [0, 5, 6], "max"))
