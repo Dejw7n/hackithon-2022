@@ -70,7 +70,6 @@ Data se po zpracování zobrazí ve webovém rozhraní.
 `GetCountActive()`
  - Vrací náramky u kterých jsou data dostupná
 
-<<<<<<< HEAD
 `GetAllAvgDayStepsForAll()`
  - Vrací průměrný počet kroků celé třídy za všechny dny
 
@@ -82,7 +81,3 @@ Data se po zpracování zobrazí ve webovém rozhraní.
 
 `GetAvgDayStepsForAllGeneral(datas)`
  - Vrací průměr kroků třídy za všechny dny
-=======
-`GetAllAvgDayStepsForClass()`
-- 
->>>>>>> 2739f83c0f8006ae6903893c8190d50f94e837af
