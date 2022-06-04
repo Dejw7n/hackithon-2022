@@ -1,6 +1,5 @@
 import json
 import funkce
-import komponenty
 import plotly
 import plotly.express as px
 from flask import Flask, render_template
