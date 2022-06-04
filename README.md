@@ -28,7 +28,7 @@ Data se po zpracování zobrazí ve webovém rozhraní.
  - Vrací data s hodnotou heart rate mezi 1-254
 
 `GetMinutesByDeltaTime(start = čas začátku, end = čas konce)`
- - Vrací minuty mezi mezi rozdílem startu a endu
+ - Vrací minuty mezi rozdílem startu a endu
 
 `GetDifferenceMinutes(datas = jaká datas)`
  - Vrací 10 % z rozdílu Max a Min hodnotou času
@@ -62,5 +62,8 @@ Data se po zpracování zobrazí ve webovém rozhraní.
 
 ### funkce.py
 
-`CompareStepsBySex()`
- - Vrací 
+`GetCountActive()`
+ - Vrací náramky u kterých jsou data dostupná
+
+`GetAllAvgDayStepsForClass()`
+- 
