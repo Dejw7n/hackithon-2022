@@ -11,8 +11,11 @@ import datetime
 
 con = sqlite3.connect("hackithon-2022/data/Gadgetbridge.sqlite")
 data = pd.read_sql_query("SELECT * FROM MI_BAND_ACTIVITY_SAMPLE", con)
+
 info = pd.read_csv("hackithon-2022/data/info.csv")
 schedule = pd.read_csv("hackithon-2022/data/schedule.csv")
+home = pd.read_csv("hackithon-2022/data/data_home.csv")
+school = pd.read_csv("hackithon-2022/data/data_school.csv")
 
 activity_dictionary = {
     "Running" : [98, 50, 66, 82],
@@ -104,9 +107,11 @@ def GetMethodBetweenDates(datas, start, end, method):
     new = PrelozDatum(datas)
     return getattr(new[(new["TIMESTAMP"] >= start) & (new["TIMESTAMP"] <= end)], method)()
 
-def GetMethodOnDays(datas, days, method):
+def GetDataOnDays(datas, days):
     new = PrelozDatum(datas)
-    return getattr(new[new["TIMESTAMP"].dt.weekday in days], method)()
+    new["TIMESTAMP"] = pd.to_datetime(new["TIMESTAMP"])
+    new["DAY"] = new["TIMESTAMP"].dt.weekday
+    return new[new["DAY"].isin(days)]
 
 def GetSubjectsOnData():
     school_df = pd.read_csv('hackithon-2022/data/data_school.csv', parse_dates = ['datetime'])
@@ -128,5 +133,3 @@ def GetSubjectsOnData():
 
 def Vypis(datas):
     print(datas.to_markdown())
-
-#print(GetMethodOnDays(data, [0, 5, 6], "max"))
