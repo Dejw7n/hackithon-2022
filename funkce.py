@@ -3,7 +3,11 @@ import analyza
 
 ##########NEDODĚLANÉ###########
 def CompareStepsBySex():
-    return analyza.GetData(analyza.data.merge(analyza.info, on=["ALIAS", "alias"]))
+    k1 = analyza.data.copy(deep=True)
+    k2 = analyza.info.copy(deep=True)
+    k1["tmp"] = 1
+    k2["tmp"] = 1
+    return k1.merge(k2, on="tmp")
 
 def GetCountInactive():
     return analyza.GetData(analyza.device.merge(analyza.info, how="outer", on=""), metody=["size"])["NAME"]["size"]
@@ -13,9 +17,11 @@ def GetCountInactive():
 #Vrací náramky, u kterých jsou data dostupná
 def GetCountActiveGeneral():
     return analyza.GetData(analyza.info, metody=["size"])["id"]["size"]
+
 #Vrací průměrný počet kroků celé třídy za všechny dny
 def GetAllAvgDayStepsForAllGeneral(datas):
     return analyza.GetData(analyza.GetMereny(datas), metody=["mean"], co=["STEPS"])*60*24
+
 #Vrací počet kroků studenta za všechny dny
 def GetSumDayStepsForUsersGeneral(datas):
     k = datas.copy(deep=True)
@@ -49,6 +55,4 @@ GetSumDayStepsForUsers = GetSumDayStepsForUsersGeneral(analyza.data)
 GetAllAvgDayStepsForAll = GetAllAvgDayStepsForAllGeneral(analyza.data)
 GetCountActive = GetCountActiveGeneral()
 
-
-
-print(GetCountActive)
+print(CompareStepsBySex())

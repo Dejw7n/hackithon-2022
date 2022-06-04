@@ -1,15 +1,20 @@
 # HACKITHON 2022 - Analýza pohybové aktivity z chytrých náramků
 
-**FitStats** je webová aplikace zabývající se zpracováním dat z náramků značky xiaomi band 4.
+**FitStats** je webová aplikace zabývající se zpracováním dat z náramků značky Xiaomi Mi Band 4.
 Data se po zpracování zobrazí ve webovém rozhraní.
 
 ## Použité technologie
  - ### FRONTEND
    - HTML/CSS
-   - JS
+   - JavaScript
+   - Plotly
+   - TailWind
+
  - ### BACKEND
    - Python
+     - Flask
      - Pandas
+     - Sqlite3
   
 ## Dokumentace kódu
 
