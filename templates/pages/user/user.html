@@ -1,5 +1,41 @@
 {% extends 'base.html' %} {% block main %}
-<div class="grid grid-rows-4 gap-4 lg:grid-rows-1 lg:grid-cols-4 lg:gap-8">
+<div class="">
+	<div class="flex bg-white">
+		<div class="">
+			<div class="p-6 rounded-3xl bg-blue-500">
+				<div class="flex">
+					<div class="w-20 h-20 bg-red-500"></div>
+					<div class="grid ml-6">
+						<div class="my-auto">
+							<h1 class="text-2xl text-white font-semibold">Uživatel 12</h1>
+							<p class="text-lg text-white">12 let</p>
+						</div>
+					</div>
+				</div>
+				<div class="grid grid-cols-3 gap-12 mt-4">
+					<div class="">
+						<p class="text-lg text-gray-100">Výška</p>
+						<p class="text-lg text-white font-semibold">185</p>
+					</div>
+					<div class="">
+						<p class="text-lg text-gray-100">Váha</p>
+						<p class="text-lg text-white font-semibold">45 kg</p>
+					</div>
+					<div class="">
+						<p class="text-lg text-gray-100">Pohlaví</p>
+						<p class="text-lg text-white font-semibold">Žena</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="grid grid-rows-2 grid-cols-3">
+			<p class="text-gray-200">Phone Number</p>
+			<p class="">2340 242 420</p>
+		</div>
+	</div>
+</div>
+<div class="grid grid-rows-4 gap-4 mt-8 lg:grid-rows-1 lg:grid-cols-4 lg:gap-8">
+	{%for i in range(0, 4)%}
 	<div class="flex px-7 py-5 rounded-md shadow-md border-2 border-gray-100 bg-white">
 		<div class="">
 			<p class="text-gray-500 leading-5">Pohyb</p>
@@ -15,51 +51,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="flex px-7 py-5 rounded-md shadow-md border-2 border-gray-100 bg-white">
-		<div class="">
-			<p class="text-gray-500 leading-5">Žádna data</p>
-			<p class="text-3xl font-semibold leading-10">0</p>
-			<p class="text-green-500 font-semibold">+ 0 % oproti minulému týdnu</p>
-			<div class="mt-1">
-				<p class="text-gray-400">Týdenní data</p>
-			</div>
-		</div>
-		<div class="ml-auto">
-			<div class="w-10 h-10 p-2 rounded-full bg-sky-200">
-				<img src="/static/src/media/ïcons/icons8-shoes-30.png" alt="" class="h-full" />
-			</div>
-		</div>
-	</div>
-	<div class="flex px-7 py-5 rounded-md shadow-md border-2 border-gray-100 bg-white">
-		<div class="">
-			<p class="text-gray-500 leading-5">Žádna data</p>
-			<p class="text-3xl font-semibold leading-10">0</p>
-			<p class="text-green-500 font-semibold">+ 0 % oproti minulému týdnu</p>
-			<div class="mt-1">
-				<p class="text-gray-400">Týdenní data</p>
-			</div>
-		</div>
-		<div class="ml-auto">
-			<div class="w-10 h-10 p-2 rounded-full bg-sky-200">
-				<img src="/static/src/media/ïcons/icons8-shoes-30.png" alt="" class="h-full" />
-			</div>
-		</div>
-	</div>
-	<div class="flex px-7 py-5 rounded-md shadow-md border-2 border-gray-100 bg-white">
-		<div class="">
-			<p class="text-gray-500 leading-5">Žádna data</p>
-			<p class="text-3xl font-semibold leading-10">0</p>
-			<p class="text-green-500 font-semibold">+ 0 % oproti minulému týdnu</p>
-			<div class="mt-1">
-				<p class="text-gray-400">Týdenní data</p>
-			</div>
-		</div>
-		<div class="ml-auto">
-			<div class="w-10 h-10 p-2 rounded-full bg-sky-200">
-				<img src="/static/src/media/ïcons/icons8-shoes-30.png" alt="" class="h-full" />
-			</div>
-		</div>
-	</div>
+	{%endfor%}
 </div>
 <div class="mt-8">
 	<div class="px-7 py-5 rounded-md shadow-md border-2 border-gray-100 bg-white">

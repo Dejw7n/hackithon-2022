@@ -16,10 +16,12 @@ def index():
     graphJSON = json.dumps(stepsGraph, cls=plotly.utils.PlotlyJSONEncoder)
     return render_template("pages/home/home.html", stepsGraph=graphJSON)
 
+
 @app.route('/user/<alias>/<args>')
-def user(alias,args):
-    getUser = funkce.GetUserByAliasFunc(alias,args)    
-    return render_template('pages/user/user.html',user=getUser)
+def user(alias, args):
+    getUser = funkce.GetUserByAliasFunc(alias, args)
+    return render_template('pages/user/user.html', user=getUser)
+
 
 @app.route('/class/')
 def classRoom():
