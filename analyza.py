@@ -104,9 +104,11 @@ def GetMethodBetweenDates(datas, start, end, method):
     new = PrelozDatum(datas)
     return getattr(new[(new["TIMESTAMP"] >= start) & (new["TIMESTAMP"] <= end)], method)()
 
-def GetMethodOnDays(datas, days, method):
+def GetDataOnDays(datas, days, method):
     new = PrelozDatum(datas)
-    return getattr(new[new["TIMESTAMP"].dt.weekday in days], method)()
+    new["TIMESTAMP"] = pd.to_datetime(new["TIMESTAMP"])
+    new["DAY"] = new["TIMESTAMP"].dt.weekday
+    return new[new["DAY"].isin(days)]
 
 def GetSubjectsOnData():
     school_df = pd.read_csv('hackithon-2022/data/data_school.csv', parse_dates = ['datetime'])
@@ -129,4 +131,4 @@ def GetSubjectsOnData():
 def Vypis(datas):
     print(datas.to_markdown())
 
-#print(GetMethodOnDays(data, [0, 5, 6], "max"))
+print(GetMethodBetweenDates(data, datetime.datetime(2021, 1, 1, 1, 1, 1, 1), datetime.datetime(2022, 1, 1, 1, 1, 1, 1), "mean").to_dict())
