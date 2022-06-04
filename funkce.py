@@ -16,10 +16,10 @@ def GetAvgDayStepsForClass():
 def GetAvgDayStepsForStudents():
     k = analyza.data.copy(deep=True)
     k["TIMESTAMP"] = analyza.pd.to_datetime(k["TIMESTAMP"]*1000000000)
-    k["DAY"] = k["TIMESTAMP"].dt.weekday
-    print(k.groupby(by=["DEVICE_ID", "DAY"]).agg({"STEPS": "mean"}))
-    #k["AVG"] = k.groupby(by=["DEVICE_ID", "DAY"]).agg({"STEPS": "mean"})
-    #k["AVG"] = k["AVG"].map(lambda x: x*60*24)
+    k["DAY"] = k["TIMESTAMP"].dt.day
+    k["WEEKDAY"] = k["TIMESTAMP"].dt.weekday
+    k = k.groupby(by=["DEVICE_ID", "DAY"]).agg({"STEPS": "mean"})
+    k["STEPS"] = k["STEPS"].map(lambda x: x*60*24)
     return k
 
 def GetAvgDayStepsForStudent(alias):

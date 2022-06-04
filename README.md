@@ -16,18 +16,18 @@ Data se po zpracování zobrazí ve webovém rozhraní.
  - Vrací vyfiltrované data z databáze
 
 `Compare(datas = jaká datas, co = jaký sloupec)`
- - porovná data a vrátí poměr v %
+ - Porovná data a vrátí poměr v %
 
 `GetMereny(datas = jaká datas)`
  - Vrací data s hodnotou heart rate mezi 1-254
 
-`GetMinutesByDeltaTime(start = cas začátku, end = čas konce)`
+`GetMinutesByDeltaTime(start = čas začátku, end = čas konce)`
  - Vrací minuty mezi mezi rozdílem startu a endu
 
 `GetDifferenceMinutes(datas = jaká datas)`
  - Vrací 10 % z rozdílu Max a Min hodnotou času
 
-`GetWorn(datas)`
+`GetWorn(datas = jaká datas)`
  - Vrací vyfiltrované data jen náramky které jsou nošené
 
 `GetUserByAlias(alias)`
@@ -39,7 +39,7 @@ Data se po zpracování zobrazí ve webovém rozhraní.
 `GetClassReport()`
  - Vrací data célé třídy
 
-`GetActivity(x = activity)`
+`GetActivity(x = aktivita)`
  - Vrací aktivitu (spánek, chůze, běh)
 
 `PrelozActivity(datas = jaká datas)`
@@ -51,3 +51,5 @@ Data se po zpracování zobrazí ve webovém rozhraní.
 `GetMethodBetweenDates(datas = jaká datas, start = začátek čas, end = konec čas, method = metoda)`
  - Provede vloženou metodu na všech záznamech začínajících s časem start a končícívh s časem end
 
+`GetDataOnDays(datas = jaká datas, days = index dnu)`
+ - Vrací vyfiltrované data podle indexu dnu
