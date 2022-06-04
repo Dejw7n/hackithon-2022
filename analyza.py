@@ -3,6 +3,7 @@ from calendar import weekday
 from locale import normalize
 from multiprocessing.dummy import Array
 from statistics import mean
+from tkinter.messagebox import NO
 from tokenize import String
 from xmlrpc.client import DateTime
 import pandas as pd
@@ -11,6 +12,9 @@ import datetime
 
 con = sqlite3.connect("hackithon-2022/data/Gadgetbridge.sqlite")
 data = pd.read_sql_query("SELECT * FROM MI_BAND_ACTIVITY_SAMPLE", con)
+
+conDevice = sqlite3.connect("hackithon-2022/data/Gadgetbridge.sqlite")
+device = pd.read_sql_query("SELECT * FROM DEVICE", conDevice)
 
 info = pd.read_csv("hackithon-2022/data/info.csv")
 schedule = pd.read_csv("hackithon-2022/data/schedule.csv")
@@ -30,7 +34,7 @@ activity_dictionary = {
     "NotWorn_FaceUp" : [83],
     "NotWorn_FaceDown" : [115]
 }
-def GetData(datas, sloupce = data.columns.values, podle = None, metody = None, co = None):
+def GetData(datas, sloupce = None, podle = None, metody = None, co = None):
     """
         datas = jaká datas
         sloupce = jaké sloupce má vybrat
@@ -39,7 +43,9 @@ def GetData(datas, sloupce = data.columns.values, podle = None, metody = None, c
         metody = jaké metody má použít
         co = na jaké sloupce má použít "metody"
     """
-    sl = data.loc[:, sloupce]
+    if sloupce == None:
+        sloupce = datas.columns.values
+    sl = datas.loc[:, sloupce]
     if podle != None:
         sl = sl.groupby(by=podle)
     if metody != None:
@@ -63,12 +69,12 @@ def GetMereny(datas):
 def GetMinutesByDeltaTime(start, end):
     return (end-start).days*24*60 if isinstance(start, DateTime) else (end-start)/60
 
-def GetDifferenceSeconds(datas):
+def GetDifferenceMinutes(datas):
     new = datas.agg({"TIMESTAMP": [min, max]})["TIMESTAMP"]
     return 0.1*GetMinutesByDeltaTime(new["min"], new["max"])
 
 def GetWorn(datas):
-    minTime = GetDifferenceSeconds(datas)
+    minTime = GetDifferenceMinutes(datas)
     return GetMereny(datas).groupby("DEVICE_ID").filter(lambda x: len(x) > minTime)
 
 def GetUserByAlias(alias):
