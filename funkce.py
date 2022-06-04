@@ -60,5 +60,3 @@ GetAvgDayStepsForAll = GetAvgDayStepsForAllGeneral(analyza.data)
 GetAvgDayStepsForUsers = GetAvgDayStepsForUsersGeneral(analyza.data)
 GetSumDayStepsForUsers = GetSumDayStepsForUsersGeneral(analyza.data)
 GetAllAvgDayStepsForAll = GetAllAvgDayStepsForAllGeneral(analyza.data)
-
-FormatSchedule()
