@@ -5,12 +5,12 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template("base.html", page="")
+    return render_template("pages/home/home.html")
 
 
 @app.route('/class/')
 def classRoom():
-    return render_template('base.html', page="class")
+    return render_template('pages/class/class.html')
 
 
 if(__name__ == "__main__"):
