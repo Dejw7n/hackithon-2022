@@ -1,6 +1,3 @@
-from copy import deepcopy
-
-from pandas import DataFrame
 import analyza
 
 ##########NEDODĚLANÉ###########
@@ -10,7 +7,7 @@ def CompareStepsBySexGeneral(datas):
     del k[("steps", "sum")]
     k = analyza.GetData(k, podle=["sex"], metody=["mean"], co=["sum steps"]).to_dict()[('sum steps', 'mean')]
     s = (k["male"]+k["female"])/100
-    k = analyza.pd.DataFrame(columns=["sex", "steps", "ratio"], data=[["male", k["male"], f"{k['male']/s}%"], ["female", k["female"], f"{k['female']/s}%"]])
+    k = analyza.pd.DataFrame(columns=["sex", "steps", "ratio"], data=[["male", k["male"], f"{round(k['male']/s, 2)}%"], ["female", k["female"], f"{round(k['female']/s, 2)}%"]])
     return k
 
 def GetCountInactive():
